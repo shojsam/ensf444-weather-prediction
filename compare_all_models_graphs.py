@@ -17,6 +17,8 @@ from sklearn.tree import DecisionTreeClassifier
 DATA_PATH = Path("weather_classification_data.csv")
 METRICS_FIGURE_PATH = Path("model_comparison_metrics.png")
 CONFUSION_FIGURE_PATH = Path("model_comparison_confusion_matrices.png")
+FINAL_ACCURACY_FIGURE_PATH = Path("final_unseen_test_accuracy.png")
+RF_PER_CLASS_ACCURACY_FIGURE_PATH = Path("random_forest_per_class_accuracy.png")
 RANDOM_STATE = 42
 
 
@@ -157,6 +159,57 @@ def plot_confusion_matrices(results_df, class_labels):
     fig.savefig(CONFUSION_FIGURE_PATH, dpi=300, bbox_inches="tight")
 
 
+def plot_final_test_accuracy(results_df):
+    plt.style.use("seaborn-v0_8-whitegrid")
+    fig, ax = plt.subplots(figsize=(9, 6))
+
+    bars = ax.bar(
+        results_df["model"],
+        results_df["test_accuracy"],
+        color=["#F58518", "#4C78A8", "#54A24B"],
+    )
+    ax.set_ylim(0.75, 1.0)
+    ax.set_ylabel("Final Test Accuracy")
+    ax.set_title("Final Unseen Data Accuracy Comparison")
+
+    for bar, score in zip(bars, results_df["test_accuracy"]):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            score + 0.005,
+            f"{score:.4f}",
+            ha="center",
+            va="bottom",
+        )
+
+    fig.tight_layout()
+    fig.savefig(FINAL_ACCURACY_FIGURE_PATH, dpi=300, bbox_inches="tight")
+
+
+def plot_random_forest_per_class_accuracy(results_df, class_labels):
+    rf_row = results_df.loc[results_df["model"] == "Random Forest"].iloc[0]
+    matrix = rf_row["confusion_matrix"]
+    per_class_accuracy = matrix.diagonal() / matrix.sum(axis=1)
+
+    plt.style.use("seaborn-v0_8-whitegrid")
+    fig, ax = plt.subplots(figsize=(9, 6))
+    bars = ax.bar(class_labels, per_class_accuracy, color=["#4C78A8", "#F58518", "#54A24B", "#E45756"])
+    ax.set_ylim(0.75, 1.0)
+    ax.set_ylabel("Accuracy by Class")
+    ax.set_title("Random Forest Per-Class Accuracy")
+
+    for bar, score in zip(bars, per_class_accuracy):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            score + 0.005,
+            f"{score:.4f}",
+            ha="center",
+            va="bottom",
+        )
+
+    fig.tight_layout()
+    fig.savefig(RF_PER_CLASS_ACCURACY_FIGURE_PATH, dpi=300, bbox_inches="tight")
+
+
 def main():
     df = pd.read_csv(DATA_PATH)
 
@@ -237,9 +290,13 @@ def main():
 
     plot_metric_comparison(results_df, class_labels)
     plot_confusion_matrices(results_df, class_labels)
+    plot_final_test_accuracy(results_df)
+    plot_random_forest_per_class_accuracy(results_df, class_labels)
 
     print(f"\nSaved graph image: {METRICS_FIGURE_PATH}")
     print(f"Saved graph image: {CONFUSION_FIGURE_PATH}")
+    print(f"Saved graph image: {FINAL_ACCURACY_FIGURE_PATH}")
+    print(f"Saved graph image: {RF_PER_CLASS_ACCURACY_FIGURE_PATH}")
 
 
 if __name__ == "__main__":

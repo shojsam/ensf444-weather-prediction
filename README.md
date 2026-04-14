@@ -65,6 +65,38 @@ Logistic Regression             ~0.88         ~0.88            ~0.88
 
 ---
 
+### Expected Graphs
+
+After running the script, 4 chart images are saved to the project folder.
+
+**1. Accuracy & F1 Score Comparison** (`model_comparison_metrics.png`)  
+Side-by-side bars showing validation accuracy, test accuracy, cross-validation accuracy, and per-class F1 scores for all three models.
+
+![Accuracy and F1 Score Comparison](model_comparison_metrics.png)
+
+---
+
+**2. Confusion Matrices** (`model_comparison_confusion_matrices.png`)  
+Three side-by-side confusion matrices showing where each model correctly classifies and where it makes mistakes across the four weather types.
+
+![Confusion Matrices](model_comparison_confusion_matrices.png)
+
+---
+
+**3. Final Test Accuracy** (`final_unseen_test_accuracy.png`)  
+A single bar chart comparing each model's accuracy on the final held-out test set — data the model never saw during training.
+
+![Final Test Accuracy](final_unseen_test_accuracy.png)
+
+---
+
+**4. Random Forest Per-Class Accuracy** (`random_forest_per_class_accuracy.png`)  
+Breaks down how well Random Forest performs on each individual weather type: Cloudy, Rainy, Snowy, and Sunny.
+
+![Random Forest Per-Class Accuracy](random_forest_per_class_accuracy.png)
+
+
+
 ## Conclusion
 
 ** Random Forest is the best-performing model**, achieving approximately **~95% test accuracy** — around 7 percentage points higher than both Logistic Regression and Decision Tree (~88%).

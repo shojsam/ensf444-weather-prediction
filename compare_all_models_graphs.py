@@ -14,11 +14,12 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
 
-DATA_PATH = Path("weather_classification_data.csv")
-METRICS_FIGURE_PATH = Path("model_comparison_metrics.png")
-CONFUSION_FIGURE_PATH = Path("model_comparison_confusion_matrices.png")
-FINAL_ACCURACY_FIGURE_PATH = Path("final_unseen_test_accuracy.png")
-RF_PER_CLASS_ACCURACY_FIGURE_PATH = Path("random_forest_per_class_accuracy.png")
+HERE = Path(__file__).parent
+DATA_PATH = HERE / "weather_classification_data.csv"
+METRICS_FIGURE_PATH = HERE / "model_comparison_metrics.png"
+CONFUSION_FIGURE_PATH = HERE / "model_comparison_confusion_matrices.png"
+FINAL_ACCURACY_FIGURE_PATH = HERE / "final_unseen_test_accuracy.png"
+RF_PER_CLASS_ACCURACY_FIGURE_PATH = HERE / "random_forest_per_class_accuracy.png"
 RANDOM_STATE = 42
 
 

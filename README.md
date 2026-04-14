@@ -67,7 +67,7 @@ Logistic Regression             ~0.88         ~0.88            ~0.88
 
 ## Conclusion
 
-**🏆 Random Forest is the best-performing model**, achieving approximately **~95% test accuracy** — around 7 percentage points higher than both Logistic Regression and Decision Tree (~88%).
+** Random Forest is the best-performing model**, achieving approximately **~95% test accuracy** — around 7 percentage points higher than both Logistic Regression and Decision Tree (~88%).
 
 Random Forest wins because it aggregates 300 decision trees (bagging + feature randomization), which reduces overfitting and captures the non-linear relationships between features like temperature, humidity, pressure, and season that simpler models cannot handle as effectively.
 
